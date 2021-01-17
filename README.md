@@ -37,7 +37,7 @@ The kubedaemon project will follow these principles:
 
 Suppose you want to build a SaaS, multi-tenant platform and your business requires that your customers can freely train some AI models to later use them inside your platform. Kubedaemon can handle the necesary plumbing for you:
 - Put resource quotas to your tenants to ensure an upper-bound limit (e.g the customer cannot run a Job that requires 32GB and 8 CPU if your tenant just have paid for a limit of 1CPU and 2GB RAM).
-- When running the job, tag it to select the propper Node (VM) to run the job (GPU, memory optimized or CPU optimized). Your Kubernetes can have multple node pools with different set of capacities and features. Or even, you can exploit the "Virtual Node" facility if you are in Azure Kubernetes Services.
+- When running the job, tag it to select the propper Node (VM) to run the job (GPU, memory optimized or CPU optimized). Your Kubernetes can have multple node pools with different set of capabilities and sizes. Or even, you can exploit the "Virtual Node" facility if you are in Azure Kubernetes Services.
 - Automatically accounts the spent per tenant and job/service (pod level). This is very useful since public clouds accounts resource-level usage only (e.g the usage of the VM/Node as a whole), and doesnt go to tenant level (unless you divide the infrastructure per tenant but this is not practical since there might be customers that cannot afford a full infrastructure).
 - Monitor the process & have logs wich you can share (or not) with the user.
 - Host long running services (with scale-to-zero functionality) that can be directly called (sync) or through a queue (async)
