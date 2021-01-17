@@ -1,7 +1,7 @@
 # Kubedaemon
 A Serverless, multi-tenant, easy-to-use, Kubernetes service launcher (jobs, work queues, GRPC/HTTP services) with scale-to-zero support.
 
-> :warning: this project is in **an early stages and under heavy development** and have not reach the alpha stage yet! So, proceed with caution.
+> :warning: this project is in **early stages and under heavy development** and have not reach the alpha stage yet! So, proceed with caution.
 
 ## Motivation
 
