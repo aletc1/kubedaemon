@@ -9,7 +9,7 @@ How to run a batch job in Kubernetes? (A pice of code that process some data in 
 
 There are some challenges/requirements we will address in this project:
 - **Node selection**: There are workloads that requires GPU, others require memory-optimized VMs or can run in generic VMs. Depending on this, the job execution time will cost more or less, so we need a mechanism to first, select the propper VM, and then account the spent accordingly (useful to later pass it to customers). Beside this, the Kubernetes cluster may be running in a public cloud (Azure, Google, Amazon, Others) or on-premise, so would be nice to have a mechanism that account the spent (specially on-premises).
-- **Infrastructure abstraction**: Try to hide the Kubernetes infrastructure complexity as much as possible, and provide a simple interface to handle the intended work without the fuuss. 
+- **Infrastructure abstraction**: Try to hide the Kubernetes infrastructure complexity as much as possible, and provide a simple interface to handle the intended work without the fuss. 
 - **Handle parallelism**: How to divide the data in blocks and process it in parallel? How to scale pods accordingly?
 - **Cost efficiency & quotas**: How to reduce costs? How to account the resources used? How to set quotas for a tenant and track storage, memory & CPU used?
 - **Separation of Concerns (SoC)**: How to abstract the details of the infrastructure and the plumbing used to the end user, and just give they a simple API that "do the job" without the fuss.
