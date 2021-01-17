@@ -17,7 +17,7 @@ There are some challenges/requirements we will address in this project:
 - **Authorization & multi-tenancy**: How to divide the system in tenants and authorize them accordingly (e.g JWT token, RBAC authorization).
 - **Observability, security, and reliability**: How to ensure (in this multi-tenant architecture) proper tenant data separation and restrict servie to service communication?
 - **3rd-party system integrations**: Will be nice to integrate with other systems, and for instance, notify some of them when a job finishes (Webhooks).
-- **ISV vs customer data access**: Plan what data can be seen by customers (end-users) and what can be seen by the ISVs (or the company administrators). E.g infrastructure secrets cannot be seen by customers but they can use it.
+- **ISV vs customer data access**: Plan what data can be seen by customers (end-users) and what can be seen by the ISVs (or the company administrators). E.g infrastructure secrets cannot be seen by customers but they can use them.
 - **Event-based architecture**: Architect the solution as an Event-Sourcing, Command Query Responsibility Segregation (CQRS) system.
 - **Modern Admin UI**: Every operation you can do will have an API, but would be nice to have an easy-to-use, secure, multi-tenant management UI.
 
