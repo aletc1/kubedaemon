@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31521.260
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kubedaemon", "Kubedaemon\Kubedaemon.csproj", "{D305A9BF-80C1-4DAB-8773-D733AB21A8CF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kubedaemon.Tests", "Kubedaemon.Tests\Kubedaemon.Tests.csproj", "{BF8BC576-719C-4CCE-A849-B70188762582}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D305A9BF-80C1-4DAB-8773-D733AB21A8CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D305A9BF-80C1-4DAB-8773-D733AB21A8CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D305A9BF-80C1-4DAB-8773-D733AB21A8CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D305A9BF-80C1-4DAB-8773-D733AB21A8CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF8BC576-719C-4CCE-A849-B70188762582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF8BC576-719C-4CCE-A849-B70188762582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF8BC576-719C-4CCE-A849-B70188762582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF8BC576-719C-4CCE-A849-B70188762582}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {561A3638-1B73-489E-8E77-89AE8694B316}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+	
+	<PropertyGroup>
+		<PackageId>Kubedaemon.Core</PackageId>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Version Condition=" '$(BUILD_BUILDNUMBER)' == '' ">0.0.1-alpha</Version>
+		<Version Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)-alpha</Version>
+		<Authors>Alejandro Tamayo Castillo</Authors>
+		<Company>IBERANT SOLUTIONS S.L</Company>
+		<PackageTags>kubernetes;aks;aci;jobs</PackageTags>
+		<Description>An easy and reliable way to launch multi-platform jobs (Kubernetes, Azure Container Instance) and manage service apps. One use case would be to train an AI model and then host it for predictions.</Description>
+		<PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<RepositoryUrl></RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageProjectUrl>https://github.com/aletc1/kubedaemon</PackageProjectUrl>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="KubernetesClient" Version="5.0.20" />
+  </ItemGroup>
+
+</Project>
