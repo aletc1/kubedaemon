@@ -51,6 +51,21 @@ namespace Kubedaemon.Platforms
                         await _client.ReplaceNamespacedConfigMapAsync(body, body.Name(), ns);
                     }
                 }
+                if (obj is V1Secret)
+                {
+                    var body = (V1Secret)obj;
+                    ApplyInternalLabels(body);
+                    try
+                    {
+                        await _client.CreateNamespacedSecretAsync(body, ns);
+                    }
+                    catch (HttpOperationException ex)
+                    {
+                        if (ex.Response.StatusCode != System.Net.HttpStatusCode.Conflict)
+                            throw;
+                        await _client.ReplaceNamespacedSecretAsync(body, body.Name(), ns);
+                    }
+                }
                 else if (obj is V1Job)
                 {
                     var body = (V1Job)obj;
