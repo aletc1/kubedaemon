@@ -2,8 +2,6 @@ using Xunit;
 using Kubedaemon.Platforms;
 using k8s;
 using System.Threading.Tasks;
-using System.Diagnostics.Metrics;
-using System.Linq;
 
 namespace Kubedaemon.Tests
 {
