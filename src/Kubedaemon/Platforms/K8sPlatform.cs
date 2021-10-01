@@ -26,108 +26,130 @@ namespace Kubedaemon.Platforms
 
         public async Task ApplyManifestAsync(string manifest, string ns = "default")
         {
-            var typeMap = new Dictionary<String, Type>();
-            typeMap.Add("v1/ConfigMap", typeof(V1ConfigMap));
-            typeMap.Add("v1/Job", typeof(V1Job));
-            typeMap.Add("v1/Deployment", typeof(V1Deployment));
-            typeMap.Add("v1/Service", typeof(V1Service));
-            typeMap.Add("v1/ServiceAccount", typeof(V1ServiceAccount));
-
-            var objects = Yaml.LoadAllFromString(manifest, typeMap);
-            foreach (var obj in objects)
+            try
             {
-                if (obj is V1ConfigMap)
+                var typeMap = new Dictionary<String, Type>();
+                typeMap.Add("v1/ConfigMap", typeof(V1ConfigMap));
+                typeMap.Add("v1/Job", typeof(V1Job));
+                typeMap.Add("v1/Deployment", typeof(V1Deployment));
+                typeMap.Add("v1/Service", typeof(V1Service));
+                typeMap.Add("v1/ServiceAccount", typeof(V1ServiceAccount));
+
+                var objects = Yaml.LoadAllFromString(manifest, typeMap);
+                foreach (var obj in objects)
                 {
-                    var body = (V1ConfigMap)obj;
-                    ApplyInternalLabels(body);
-                    try
+                    if (obj is V1ConfigMap)
                     {
-                        await _client.CreateNamespacedConfigMapAsync(body, ns);
+                        var body = (V1ConfigMap)obj;
+                        ApplyInternalLabels(body);
+                        try
+                        {
+                            await _client.CreateNamespacedConfigMapAsync(body, ns);
+                        }
+                        catch (HttpOperationException ex)
+                        {
+                            if (ex.Response.StatusCode != System.Net.HttpStatusCode.Conflict)
+                                throw;
+                            await _client.ReplaceNamespacedConfigMapAsync(body, body.Name(), ns);
+                        }
                     }
-                    catch (HttpOperationException ex)
+                    else if (obj is V1ServiceAccount)
                     {
-                        if (ex.Response.StatusCode != System.Net.HttpStatusCode.Conflict)
-                            throw;
-                        await _client.ReplaceNamespacedConfigMapAsync(body, body.Name(), ns);
+                        var body = (V1ServiceAccount)obj;
+                        ApplyInternalLabels(body);
+                        try
+                        {
+                            await _client.CreateNamespacedServiceAccountAsync(body, ns);
+                        }
+                        catch (HttpOperationException ex)
+                        {
+                            if (ex.Response.StatusCode != System.Net.HttpStatusCode.Conflict)
+                                throw;
+                            await _client.ReplaceNamespacedServiceAccountAsync(body, body.Name(), ns);
+                        }
                     }
+                    else if (obj is V1Secret)
+                    {
+                        var body = (V1Secret)obj;
+                        ApplyInternalLabels(body);
+                        try
+                        {
+                            await _client.CreateNamespacedSecretAsync(body, ns);
+                        }
+                        catch (HttpOperationException ex)
+                        {
+                            if (ex.Response.StatusCode != System.Net.HttpStatusCode.Conflict)
+                                throw;
+                            await _client.ReplaceNamespacedSecretAsync(body, body.Name(), ns);
+                        }
+                    }
+                    else if (obj is V1Job)
+                    {
+                        var body = (V1Job)obj;
+                        ApplyInternalLabels(body);
+                        try
+                        {
+                            await _client.CreateNamespacedJobAsync(body, ns);
+                        }
+                        catch (HttpOperationException ex)
+                        {
+                            if (ex.Response.StatusCode != System.Net.HttpStatusCode.Conflict)
+                                throw;
+                            await _client.ReplaceNamespacedJobAsync(body, body.Name(), ns);
+                        }
+                    }
+                    else if (obj is V1Deployment)
+                    {
+                        var body = (V1Deployment)obj;
+                        ApplyInternalLabels(body);
+                        try
+                        {
+                            await _client.CreateNamespacedDeploymentAsync(body, ns);
+                        }
+                        catch (HttpOperationException ex)
+                        {
+                            if (ex.Response.StatusCode != System.Net.HttpStatusCode.Conflict)
+                                throw;
+                            await _client.ReplaceNamespacedDeploymentAsync(body, body.Name(), ns);
+                        }
+                    }
+                    else if (obj is V1Service)
+                    {
+                        var body = (V1Service)obj;
+                        ApplyInternalLabels(body);
+                        try
+                        {
+                            await _client.CreateNamespacedServiceAsync(body, ns);
+                        }
+                        catch (HttpOperationException ex)
+                        {
+                            if (ex.Response.StatusCode != System.Net.HttpStatusCode.Conflict)
+                                throw;
+                            await _client.ReplaceNamespacedServiceAsync(body, body.Name(), ns);
+                        }
+                    }
+                    else if (obj is V1ServiceAccount)
+                    {
+                        var body = (V1ServiceAccount)obj;
+                        ApplyInternalLabels(body);
+                        try
+                        {
+                            await _client.CreateNamespacedServiceAccountAsync(body, ns);
+                        }
+                        catch (HttpOperationException ex)
+                        {
+                            if (ex.Response.StatusCode != System.Net.HttpStatusCode.Conflict)
+                                throw;
+                            await _client.ReplaceNamespacedServiceAccountAsync(body, body.Name(), ns);
+                        }
+                    }
+                    else
+                        throw new ArgumentException("Manifest type not supported");
                 }
-                if (obj is V1Secret)
-                {
-                    var body = (V1Secret)obj;
-                    ApplyInternalLabels(body);
-                    try
-                    {
-                        await _client.CreateNamespacedSecretAsync(body, ns);
-                    }
-                    catch (HttpOperationException ex)
-                    {
-                        if (ex.Response.StatusCode != System.Net.HttpStatusCode.Conflict)
-                            throw;
-                        await _client.ReplaceNamespacedSecretAsync(body, body.Name(), ns);
-                    }
-                }
-                else if (obj is V1Job)
-                {
-                    var body = (V1Job)obj;
-                    ApplyInternalLabels(body);
-                    try
-                    {
-                        await _client.CreateNamespacedJobAsync(body, ns);
-                    }
-                    catch (HttpOperationException ex)
-                    {
-                        if (ex.Response.StatusCode != System.Net.HttpStatusCode.Conflict)
-                            throw;
-                        await _client.ReplaceNamespacedJobAsync(body, body.Name(), ns);
-                    }
-                }
-                else if (obj is V1Deployment)
-                {
-                    var body = (V1Deployment)obj;
-                    ApplyInternalLabels(body);
-                    try
-                    {
-                        await _client.CreateNamespacedDeploymentAsync(body, ns);
-                    }
-                    catch (HttpOperationException ex)
-                    {
-                        if (ex.Response.StatusCode != System.Net.HttpStatusCode.Conflict)
-                            throw;
-                        await _client.ReplaceNamespacedDeploymentAsync(body, body.Name(), ns);
-                    }
-                }
-                else if (obj is V1Service)
-                {
-                    var body = (V1Service)obj;
-                    ApplyInternalLabels(body);
-                    try
-                    {
-                        await _client.CreateNamespacedServiceAsync(body, ns);
-                    }
-                    catch (HttpOperationException ex)
-                    {
-                        if (ex.Response.StatusCode != System.Net.HttpStatusCode.Conflict)
-                            throw;
-                        await _client.ReplaceNamespacedServiceAsync(body, body.Name(), ns);
-                    }
-                }
-                else if (obj is V1ServiceAccount)
-                {
-                    var body = (V1ServiceAccount)obj;
-                    ApplyInternalLabels(body);
-                    try
-                    {
-                        await _client.CreateNamespacedServiceAccountAsync(body, ns);
-                    }
-                    catch (HttpOperationException ex)
-                    {
-                        if (ex.Response.StatusCode != System.Net.HttpStatusCode.Conflict)
-                            throw;
-                        await _client.ReplaceNamespacedServiceAccountAsync(body, body.Name(), ns);
-                    }
-                }
-                else
-                    throw new ArgumentException("Manifest type not supported");
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
 
